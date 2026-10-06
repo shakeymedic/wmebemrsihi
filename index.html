@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ketamine vs. Propofol for RSI in Traumatic Brain Injury</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .kpi-box {
+            border-left-width: 4px;
+        }
+        .flowchart-step {
+            position: relative;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .flowchart-arrow {
+            position: absolute;
+            left: 50%;
+            bottom: -2rem;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 2rem;
+            background-color: #4A5568;
+        }
+        .flowchart-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 16px;
+            height: 16px;
+            border-bottom: 2px solid #4A5568;
+            border-right: 2px solid #4A5568;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#003f5c] mb-2">The Induction Decision in TBI</h1>
+            <p class="text-lg md:text-xl text-[#58508d] max-w-4xl mx-auto">An Evidence-Based Comparison of Ketamine and Propofol for Rapid Sequence Induction (RSI) in UK Emergency Departments</p>
+        </header>
+
+        <section id="introduction" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#003f5c] mb-4">The Critical Choice</h2>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                    In patients with Traumatic Brain Injury (TBI), Rapid Sequence Induction (RSI) for intubation is a high-stakes procedure. The choice of induction agent can profoundly impact patient outcomes by influencing cerebral haemodynamics. Historically, ketamine was avoided due to fears of raising intracranial pressure (ICP). This infographic synthesizes modern UK-centric evidence to compare ketamine and propofol, guiding clinicians towards a data-driven decision that prioritizes patient safety and neurological protection by avoiding secondary brain insults.
+                </p>
+            </div>
+        </section>
+
+        <section id="drug-profiles" class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8">Agent Profiles: A Head-to-Head Comparison</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <div class="bg-white rounded-lg shadow-lg p-6 kpi-box border-[#bc5090]">
+                    <h3 class="text-2xl font-bold text-[#bc5090] mb-3">Ketamine: The Sympathomimetic</h3>
+                     <p class="mb-4 text-gray-600">Known for its haemodynamic stability, ketamine supports blood pressure, a critical factor in maintaining cerebral perfusion.</p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start"><span class="text-[#bc5090] font-bold text-xl mr-3">✓</span> <div><strong>Haemodynamics:</strong> Stable or increased Mean Arterial Pressure (MAP), preserving Cerebral Perfusion Pressure (CPP).</div></li>
+                        <li class="flex items-start"><span class="text-[#bc5090] font-bold text-xl mr-3">✓</span> <div><strong>ICP:</strong> Modern evidence shows no significant increase in ICP in mechanically ventilated TBI patients.</div></li>
+                        <li class="flex items-start"><span class="text-[#bc5090] font-bold text-xl mr-3">✓</span> <div><strong>Neuroprotection:</strong> Potential benefit via NMDA receptor antagonism, mitigating excitotoxicity.</div></li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 kpi-box border-[#ffa600]">
+                    <h3 class="text-2xl font-bold text-[#ffa600] mb-3">Propofol: The Cerebral Vasoconstrictor</h3>
+                    <p class="mb-4 text-gray-600">Valued for its ability to reduce cerebral metabolism, but this comes at the cost of potential cardiovascular instability.</p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start"><span class="text-red-500 font-bold text-xl mr-3">✗</span> <div><strong>Haemodynamics:</strong> High risk of significant hypotension due to vasodilation, which can critically lower CPP.</div></li>
+                        <li class="flex items-start"><span class="text-[#ffa600] font-bold text-xl mr-3">✓</span> <div><strong>ICP:</strong> Effectively lowers ICP by reducing cerebral metabolic rate (CMRO2).</div></li>
+                        <li class="flex items-start"><span class="text-[#ffa600] font-bold text-xl mr-3">✓</span> <div><strong>Neuroprotection:</strong> Achieved by reducing the brain's metabolic demand.</div></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="haemodynamics-chart" class="mb-12">
+             <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-2">The Primary Differentiator: Haemodynamic Impact</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-6">The most significant risk in TBI induction is hypotension, which leads to secondary brain injury. This chart compares the typical post-induction change in Mean Arterial Pressure (MAP), a key factor in maintaining Cerebral Perfusion Pressure (CPP = MAP - ICP).</p>
+                <div class="chart-container">
+                    <canvas id="mapChangeChart"></canvas>
+                </div>
+                 <p class="text-center text-sm text-gray-500 mt-4">This bar chart illustrates that propofol carries a substantial risk of hypotension, whereas ketamine typically maintains or elevates blood pressure, safeguarding cerebral perfusion.</p>
+            </div>
+        </section>
+        
+        <section id="icp-myth" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#003f5c] mb-4 text-center">Debunking the ICP Myth</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                     <div class="bg-blue-50 p-4 rounded-lg">
+                         <h3 class="text-4xl font-extrabold text-[#003f5c]">1970s</h3>
+                         <p class="text-gray-700 mt-2">Initial studies in patients with pre-existing CSF circulation issues suggested ketamine raised ICP.</p>
+                     </div>
+                     <div class="bg-blue-50 p-4 rounded-lg">
+                         <h3 class="text-4xl font-extrabold text-[#58508d]">2000s</h3>
+                         <p class="text-gray-700 mt-2">Research in modern settings with controlled ventilation began to challenge the old dogma, showing neutral ICP effects.</p>
+                     </div>
+                      <div class="bg-blue-50 p-4 rounded-lg">
+                         <h3 class="text-4xl font-extrabold text-[#bc5090]">2020s</h3>
+                         <p class="text-gray-700 mt-2">Systematic reviews confirm ketamine does not increase ICP in ventilated TBI patients compared to other agents.</p>
+                     </div>
+                 </div>
+                 <p class="text-center text-gray-600 max-w-3xl mx-auto mt-6">The long-held belief that ketamine is contraindicated in TBI is based on outdated evidence. Modern research confirms its safety regarding intracranial pressure when used in a controlled RSI setting. The focus has now shifted to its significant benefit of preserving cerebral perfusion.</p>
+            </div>
+        </section>
+
+
+        <section id="outcomes-chart" class="mb-12">
+             <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-2">Patient-Important Outcomes: A Data Snapshot</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-6">While haemodynamics differ, high-level evidence from systematic reviews and meta-analyses provides insight into ultimate patient outcomes. This visualization summarizes the findings on mortality and poor neurological outcome.</p>
+                <div class="chart-container mx-auto">
+                    <canvas id="outcomesChart"></canvas>
+                </div>
+                 <p class="text-center text-sm text-gray-500 mt-4">This radar chart shows that, according to current meta-analyses, there is no statistically significant difference in mortality or poor neurological outcome between ketamine and propofol. This allows the clinical decision to be based on physiological first principles, primarily haemodynamic safety.</p>
+            </div>
+        </section>
+        
+        <section id="decision-flowchart" class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8">Clinical Decision Pathway in UK ED</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-6">This simplified pathway reflects an evidence-based approach to selecting an induction agent for a TBI patient, aligned with UK pre-hospital and in-hospital trends.</p>
+            <div class="relative max-w-md mx-auto">
+                <div class="flowchart-step bg-green-100 border-l-4 border-green-500">
+                    <h3 class="font-bold text-green-800">1. Patient Assessment</h3>
+                    <p class="text-sm text-green-700">TBI patient requiring RSI. Assess haemodynamic status (BP, HR).</p>
+                    <div class="flowchart-arrow"></div>
+                </div>
+
+                <div class="flowchart-step bg-blue-100 border-l-4 border-blue-500">
+                    <h3 class="font-bold text-blue-800">2. Haemodynamic Status Check</h3>
+                    <p class="text-sm text-blue-700">Is the patient hypotensive (SBP &lt;100mmHg) or at high risk of hypotension (e.g., major trauma)?</p>
+                    <div class="flowchart-arrow"></div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="flowchart-step bg-purple-100 border-l-4 border-purple-500 mb-0">
+                         <h3 class="font-bold text-purple-800 text-center">YES</h3>
+                         <p class="text-sm text-purple-700 text-center mt-2">Choose<br><strong class="text-lg">KETAMINE</strong><br>to support MAP and CPP.</p>
+                    </div>
+                     <div class="flowchart-step bg-orange-100 border-l-4 border-orange-500 mb-0">
+                         <h3 class="font-bold text-orange-800 text-center">NO</h3>
+                         <p class="text-sm text-orange-700 text-center mt-2">Ketamine remains the preferred agent due to its stable profile. Propofol may be considered in hypertensive patients, but with extreme caution.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <footer class="mt-16 text-center">
+             <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#003f5c] mb-4">The Bottom Line: A Shift in Practice</h2>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto">
+                    Based on the current body of evidence, **ketamine is the preferred induction agent for the majority of patients with traumatic brain injury in the UK.** Its superior haemodynamic profile provides a crucial safety margin by preventing hypotension and preserving cerebral perfusion pressure. While propofol has a role in reducing ICP, this benefit is often negated by its cardiovascular effects. The paradigm has shifted: the primary goal is to "Protect the Penumbra" by ensuring stable cerebral perfusion, a goal more reliably achieved with ketamine.
+                </p>
+                <p class="text-xs text-gray-500 mt-6">
+                    Disclaimer: This infographic is for educational purposes and synthesizes current evidence. It does not replace clinical judgment. Drug selection must always be tailored to the individual patient by an experienced clinician. Data is illustrative and based on trends from systematic reviews and clinical trials.
+                </p>
+             </div>
+        </footer>
+
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const wrapLabel = (label) => {
+                if (label.length <= 16) return label;
+                const words = label.split(' ');
+                let lines = [];
+                let currentLine = '';
+                for (const word of words) {
+                    if ((currentLine + ' ' + word).trim().length > 16) {
+                        lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                }
+                lines.push(currentLine.trim());
+                return lines;
+            };
+            
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                  return label.join(' ');
+                } else {
+                  return label;
+                }
+            };
+            
+            const brilliantBluesPalette = {
+                primary: '#003f5c',
+                secondary: '#58508d',
+                tertiary: '#bc5090',
+                accent: '#ff6361',
+                highlight: '#ffa600',
+                background: 'rgba(255, 166, 0, 0.2)',
+                background2: 'rgba(188, 80, 144, 0.2)',
+                border: '#ffa600',
+                border2: '#bc5090',
+            };
+
+            var mapChangeCtx = document.getElementById('mapChangeChart').getContext('2d');
+            var mapChangeChart = new Chart(mapChangeCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Propofol', 'Ketamine'],
+                    datasets: [{
+                        label: 'Typical % Change in MAP Post-Induction',
+                        data: [-25, 5],
+                        backgroundColor: [brilliantBluesPalette.background, brilliantBluesPalette.background2],
+                        borderColor: [brilliantBluesPalette.border, brilliantBluesPalette.border2],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Change in Mean Arterial Pressure (%)',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
+                        }
+                    }
+                }
+            });
+            
+            var outcomesCtx = document.getElementById('outcomesChart').getContext('2d');
+            var outcomesChart = new Chart(outcomesCtx, {
+                type: 'radar',
+                data: {
+                    labels: [wrapLabel('Incidence of Hypotension'), wrapLabel('30-Day Mortality'), wrapLabel('Poor Neurological Outcome'), wrapLabel('Maintains or Improves CPP')],
+                    datasets: [{
+                        label: 'Propofol',
+                        data: [8, 5, 5.5, 3],
+                        backgroundColor: 'rgba(255, 166, 0, 0.2)',
+                        borderColor: '#ffa600',
+                        pointBackgroundColor: '#ffa600',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#ffa600',
+                        borderWidth: 2
+                    }, {
+                        label: 'Ketamine',
+                        data: [2, 5, 5.5, 9],
+                        backgroundColor: 'rgba(188, 80, 144, 0.2)',
+                        borderColor: '#bc5090',
+                        pointBackgroundColor: '#bc5090',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#bc5090',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 10,
+                            ticks: {
+                                stepSize: 2
+                            },
+                             pointLabels: {
+                                font: {
+                                    size: 11
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
